@@ -12,7 +12,7 @@ LOCATIONS = [
         "name": "San Diego"
     },
     {
-        "id": 3,
+        "id": 4,
         "name": "Nashville"
     }
 ]
@@ -28,3 +28,15 @@ def get_single_location(id):
       requested_location = location
 
   return requested_location
+
+def create_location(location):
+    max_id = LOCATIONS[-1]["id"]
+
+    new_id = max_id + 1
+
+    location["id"] = new_id
+
+    LOCATIONS.append(location)
+
+    return location
+
