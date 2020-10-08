@@ -1,3 +1,6 @@
+import customers
+
+
 CUSTOMERS = [
     {
         "id": 1,
@@ -32,6 +35,12 @@ def get_single_customer(id):
       requested_customer = customer
 
   return requested_customer
+
+def update_customer(id, new_customer):
+    for index, customer in enumerate(CUSTOMERS):
+        if customer["id"] == id:
+            CUSTOMERS[index] = new_customer
+            break
 
 def delete_customer(id):
     customer_index = -1
