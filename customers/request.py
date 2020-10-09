@@ -4,23 +4,28 @@ import customers
 CUSTOMERS = [
     {
         "id": 1,
-        "name": "Bo"
+        "name": "Bo",
+        "address": "123 Main St"
     },
     {
         "id": 2,
-        "name": "Duke"
+        "name": "Duke",
+        "address": "123 Main St"
     },
     {
         "id": 3,
-        "name": "Daisy"
+        "name": "Daisy",
+        "address": "123 Main St"
     },
     {
         "id": 4,
-        "name": "Uncle Jesse"
+        "name": "Uncle Jesse",
+        "address": "123 Main St"
     },
     {
         "id": 5,
-        "name": "Boss Hog"
+        "name": "Boss Hog",
+        "address": "123 Main St"
     }
 ]
 
