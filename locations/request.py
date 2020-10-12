@@ -1,19 +1,19 @@
 LOCATIONS = [
     {
         "id": 1,
-        "name": "Seattle"
+        "address": "Seattle"
     },
     {
         "id": 2,
-        "name": "Los Angeles"
+        "address": "Los Angeles"
     },
     {
         "id": 3,
-        "name": "San Diego"
+        "address": "San Diego"
     },
     {
         "id": 4,
-        "name": "Nashville"
+        "address": "Nashville"
     }
 ]
 
