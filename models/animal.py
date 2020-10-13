@@ -1,6 +1,5 @@
 from os import stat
 
-
 class Animal():
 
     # Class initializer. It has 5 custom parameters, with the

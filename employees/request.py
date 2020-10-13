@@ -1,3 +1,5 @@
+from models import employee
+import employees
 import sqlite3
 import json
 from models import Employee
@@ -32,51 +34,75 @@ EMPLOYEES = [
 def get_all_employees():
     with sqlite3.connect("./kennel.db") as conn:
 
-      conn.row_factory = sqlite3.Row
-      db_cursor = conn.cursor()
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
 
-      db_cursor.execute("""
-      SELECT
-        a.id,
-        a.name,
-        a.address,
-        a.location_id
-      FROM employee a
-      """)
+        db_cursor.execute("""
+        SELECT
+            a.id,
+            a.name,
+            a.address,
+            a.location_id
+        FROM employee a
+        """)
 
-      employees = []
+        employees = []
 
-      dataset = db_cursor.fetchall()
+        dataset = db_cursor.fetchall()
 
-      for row in dataset:
+        for row in dataset:
 
-          employee = Employee(row['id'], row['name'], row['address'], row['location_id'])
-          employees.append(employee.__dict__)
+            employee = Employee(row['id'], row['name'], row['address'], row['location_id'])
+            employees.append(employee.__dict__)
 
     return json.dumps(employees)
 
 
 
 def get_single_employee(id):
-  with sqlite3.connect("./kennel.db") as conn:
-      conn.row_factory = sqlite3.Row
-      db_cursor = conn.cursor()
+    with sqlite3.connect("./kennel.db") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
 
-      db_cursor.execute("""
-      SELECT
-        a.id,
-        a.name,
-        a.address,
-        a.location_id
-      FROM employee a
-      WHERE a.id = ?
-      """, ( id, ))
+        db_cursor.execute("""
+        SELECT
+            a.id,
+            a.name,
+            a.address,
+            a.location_id
+        FROM employee a
+        WHERE a.id = ?
+        """, ( id, ))
 
-      data = db_cursor.fetchone()
+        data = db_cursor.fetchone()
 
-      employee = Employee(data['id'], data['name'], data['address'], data['location_id'])
+        employee = Employee(data['id'], data['name'], data['address'], data['location_id'])
 
-      return json.dumps(employee.__dict__)
+        return json.dumps(employee.__dict__)
+
+def get_employees_by_location(location_id):
+    with sqlite3.connect("./kennel.db") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor = conn.execute("""
+        SELECT
+            a.id,
+            a.name,
+            a.address,
+            a.location_id
+        FROM employee a
+        WHERE a.location_id = ?
+        """, ( location_id, ))
+
+        employees = []
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+            employee = Employee(row['id'], row['name'], row['address'], row['location_id'])
+            employees.append(employee.__dict__)
+
+    return json.dumps(employees)
 
 
 def create_employee(employee):
