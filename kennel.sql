@@ -66,7 +66,7 @@ SELECT
     a.id,
     a.name
 FROM location a
-WHERE a.id = 2
+WHERE a.id = 2;
 
 SELECT * 
-FROM location
+FROM Customer;

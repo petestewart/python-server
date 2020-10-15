@@ -2,7 +2,7 @@ from models import employee
 import employees
 import sqlite3
 import json
-from models import Employee
+from models import Employee, Location
 
 EMPLOYEES = [
     {
@@ -39,11 +39,13 @@ def get_all_employees():
 
         db_cursor.execute("""
         SELECT
-            a.id,
-            a.name,
-            a.address,
-            a.location_id
-        FROM employee a
+            e.id,
+            e.name,
+            e.address,
+            e.location_id,
+            l.name location_name
+        FROM Employee e
+        JOIN Location l ON e.location_id = l.id
         """)
 
         employees = []
@@ -53,6 +55,11 @@ def get_all_employees():
         for row in dataset:
 
             employee = Employee(row['id'], row['name'], row['address'], row['location_id'])
+
+            location = Location('', row['location_name'], '')
+
+            employee.location = location.__dict__
+            
             employees.append(employee.__dict__)
 
     return json.dumps(employees)
@@ -66,17 +73,23 @@ def get_single_employee(id):
 
         db_cursor.execute("""
         SELECT
-            a.id,
-            a.name,
-            a.address,
-            a.location_id
-        FROM employee a
-        WHERE a.id = ?
+            e.id,
+            e.name,
+            e.address,
+            e.location_id,
+            l.name location_name
+        FROM Employee e
+        JOIN Location l ON e.location_id = l.id
+        WHERE e.id = ?
         """, ( id, ))
 
         data = db_cursor.fetchone()
 
         employee = Employee(data['id'], data['name'], data['address'], data['location_id'])
+
+        location = Location('', data['location_name'], '')
+
+        employee.location = location.__dict__
 
         return json.dumps(employee.__dict__)
 
